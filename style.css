@@ -1,331 +1,179 @@
-/* --- VARIABLES DE COLORES --- */
-:root {
-    /* MODO CLARO (Default) */
-    --bg-color: #ffffff;
-    --text-main: #111;
-    --text-gray: #666;
-    --card-bg: #fff;
-    --navbar-bg: rgba(255, 255, 255, 0.95); /* Un poco menos transparente para que la sombra se note más */
-    --btn-bg: #000;
-    --btn-text: #fff;
-    
-    /* --- AQUÍ ESTÁ EL CAMBIO PARA MODO CLARO --- */
-    /* Antes era 0.08 (muy suave), ahora es 0.15 (más notorio) y con más desenfoque */
-    --shadow: 0 20px 40px rgba(0,0,0,0.15); 
-    
-    --particle-color: rgba(0, 0, 0, 0.8);
-    --active-pill: #000;
-    --active-text: #fff;
-    --tags-bg: #f3f3f3;
-}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio | Alberto Rodríguez</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
 
-/* MODO OSCURO */
-body.dark-mode {
-    --bg-color: #0a0a0a;
-    --text-main: #f0f0f0;
-    --text-gray: #aaa;
-    --card-bg: #161616;
-    --navbar-bg: rgba(20, 20, 20, 0.95);
-    --btn-bg: #fff;
-    --btn-text: #000;
-    
-    /* --- AQUÍ ESTÁ EL CAMBIO PARA MODO OSCURO --- */
-    /* Hacemos la sombra un poco más difusa y oscura */
-    --shadow: 0 25px 50px rgba(0,0,0,0.7);
-
-    --particle-color: rgba(255, 255, 255, 0.8);
-    --active-pill: #fff;
-    --active-text: #000;
-    --tags-bg: #333;
-}
-
-/* ... (El resto del CSS sigue igual) ... */
-
-/* --- RESET Y GLOBALES --- */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-body { 
-    background: var(--bg-color); 
-    color: var(--text-main); 
-    overflow-x: hidden; 
-    transition: background 0.3s ease, color 0.3s ease;
-}
-html { scroll-behavior: smooth; }
-
-/* --- PANTALLA DE CARGA (LOADER) --- */
-#loader {
-    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    background: #000; z-index: 99999;
-    display: flex; justify-content: center; align-items: center;
-    color: white; overflow: hidden;
-    transition: opacity 0.8s ease, visibility 0.8s ease;
-}
-
-.loader-content { z-index: 10; text-align: center; }
-.welcome-text { display: flex; justify-content: center; font-size: 5rem; font-weight: 700; margin-bottom: 30px; letter-spacing: -2px; }
-.welcome-text span { opacity: 0; transform: translateY(50px); animation: fadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; }
-/* Retrasos para letras */
-.welcome-text span:nth-child(1) { animation-delay: 0.1s; }
-.welcome-text span:nth-child(2) { animation-delay: 0.15s; }
-.welcome-text span:nth-child(3) { animation-delay: 0.2s; }
-.welcome-text span:nth-child(4) { animation-delay: 0.25s; }
-.welcome-text span:nth-child(5) { animation-delay: 0.3s; }
-.welcome-text span:nth-child(6) { animation-delay: 0.35s; }
-.welcome-text span:nth-child(7) { animation-delay: 0.4s; }
-.welcome-text span:nth-child(8) { animation-delay: 0.45s; }
-.welcome-text span:nth-child(9) { animation-delay: 0.5s; }
-.welcome-text span:nth-child(10){ animation-delay: 0.55s; }
-
-@keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-
-.loading-bar-container { width: 300px; margin: 0 auto; text-align: center; }
-.loading-bar { height: 5px; background: white; width: 0%; border-radius: 5px; animation: load 2.5s ease-in-out forwards; margin-bottom: 15px; }
-.loading-bar-container p { font-size: 0.9rem; letter-spacing: 4px; font-weight: 600;}
-@keyframes load { 0% { width: 0; } 100% { width: 100%; } }
-
-/* Estrellas del Loader */
-.stars-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-.star-dot { position: absolute; background: white; border-radius: 50%; opacity: 0; animation: twinkle infinite ease-in-out; }
-.s1 { width: 3px; height: 3px; top: 10%; left: 20%; animation-duration: 2s; }
-.s2 { width: 2px; height: 2px; top: 25%; left: 70%; animation-duration: 2.5s; animation-delay: 0.5s; }
-.s3 { width: 4px; height: 4px; top: 60%; left: 15%; animation-duration: 3s; animation-delay: 1s; }
-.s4 { width: 2px; height: 2px; top: 80%; left: 50%; animation-duration: 1.5s; animation-delay: 0.2s; }
-.s5 { width: 3px; height: 3px; top: 40%; left: 90%; animation-duration: 2.8s; animation-delay: 0.8s; }
-@keyframes twinkle { 0% { opacity: 0; transform: scale(0.5); } 50% { opacity: 0.8; transform: scale(1); } 100% { opacity: 0; transform: scale(0.5); } }
-
-/* --- FONDO DE PARTÍCULAS FLOTANTES --- */
-#particles-background {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    z-index: 0; pointer-events: none;
-}
-.floating-particle {
-    position: absolute; border-radius: 50%;
-    background: var(--particle-color); /* Cambia según el tema */
-    animation: floatUp linear infinite;
-}
-@keyframes floatUp {
-    0% { transform: translateY(0) translateX(0); opacity: 0; }
-    20% { opacity: 0.6; }
-    80% { opacity: 0.6; }
-    100% { transform: translateY(-100vh) translateX(20px); opacity: 0; }
-}
-
-/* --- NAVBAR --- */
-/* REEMPLAZAR EL BLOQUE DE .navbar (Líneas 115-120 aprox) */
-.navbar {
-    position: fixed; 
-    top: 20px;         /* ESTO LA PONE ARRIBA */
-    left: 50%; 
-    transform: translateX(-50%);
-    background: var(--navbar-bg); 
-    backdrop-filter: blur(10px);
-    padding: 10px 25px; 
-    border-radius: 50px;
-    box-shadow: var(--shadow); 
-    display: flex; 
-    gap: 15px; 
-    align-items: center; 
-    z-index: 1000;
-    
-    /* Aseguramos que no se vaya abajo */
-    bottom: auto; 
-    width: auto; 
-    justify-content: center;
-}
-.nav-links { display: flex; gap: 5px; }
-.nav-link { 
-    text-decoration: none; color: var(--text-gray); font-size: 0.9rem; 
-    padding: 8px 16px; border-radius: 20px; transition: 0.3s; display: flex; gap: 8px; align-items: center; 
-}
-.nav-link.active { background: var(--active-pill); color: var(--active-text); }
-.theme-btn {
-    background: transparent; border: none; color: var(--text-main); font-size: 1.1rem;
-    cursor: pointer; padding: 5px; transition: transform 0.3s;
-}
-.theme-btn:hover { transform: rotate(20deg) scale(1.1); }
-
-/* --- SECCIONES --- */
-section { 
-    padding: 100px 10%; min-height: 100vh; display: flex; align-items: center; justify-content: center; 
-    position: relative; z-index: 1; 
-}
-
-/* Hero */
-.hero { gap: 50px; }
-.hero h1 { font-size: 3.5rem; line-height: 1.2; }
-.typewriter-box { 
-    background: var(--tags-bg); padding: 5px 15px; border-radius: 8px; color: var(--text-main);
-    display: inline-block; font-weight: 600; font-size: 1.5rem; margin: 15px 0;
-}
-.bio { color: var(--text-gray); margin-bottom: 30px; max-width: 500px; line-height: 1.6; }
-.hero-img img { width: 350px; height: 350px; border-radius: 20px; object-fit: cover; box-shadow: var(--shadow); }
-
-/* Botones */
-.buttons { display: flex; gap: 15px; }
-.btn { text-decoration: none; padding: 12px 25px; border-radius: 30px; font-weight: 600; transition: 0.3s; display: flex; align-items: center; gap: 8px; }
-.btn-primary { background: var(--btn-bg); color: var(--btn-text); border: 1px solid var(--btn-bg); }
-.btn-outline { border: 2px solid #ccc; color: var(--text-main); }
-.btn:hover { transform: translateY(-3px); }
-
-/* About */
-.about { gap: 50px; }
-.about-img img { width: 400px; height: 500px; object-fit: cover; border-radius: 20px; box-shadow: var(--shadow); }
-.about-info h2 { font-size: 2.5rem; margin-bottom: 30px; }
-.info-item { margin-bottom: 25px; }
-.info-item h3 { font-size: 1.1rem; margin-bottom: 10px; color: var(--text-main); }
-.tags { display: flex; gap: 10px; flex-wrap: wrap; }
-.tags span { background: var(--tags-bg); padding: 5px 15px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; color: var(--text-main); }
-
-/* Grid de Proyectos y Servicios */
-.projects, .services { flex-direction: column; text-align: center; }
-.section-title h2 { font-size: 2.5rem; margin-bottom: 10px; }
-.section-title p { color: var(--text-gray); margin-bottom: 50px; }
-.grid-cards, .grid-services { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; width: 100%; }
-
-/* Tarjetas */
-.card, .service-card { 
-    background: var(--card-bg); border-radius: 20px; overflow: hidden; 
-    border: 1px solid rgba(128, 128, 128, 0.1); transition: 0.3s; text-align: left; position: relative; z-index: 2; 
-}
-.card:hover, .service-card:hover { transform: translateY(-10px); box-shadow: var(--shadow); }
-.card img { width: 100%; height: 180px; object-fit: cover; }
-.card-body, .service-card { padding: 25px; }
-.card-tags { display: flex; gap: 10px; margin: 15px 0; flex-wrap: wrap; }
-.card-tags span { background: var(--tags-bg); padding: 5px 12px; border-radius: 15px; font-size: 0.8rem; font-weight: 600; color: var(--text-main); }
-.link-btn { text-decoration: none; color: var(--text-main); font-weight: 600; font-size: 0.9rem; }
-.service-card .icon { font-size: 2rem; margin-bottom: 20px; color: var(--text-main); }
-.cta-box { margin-top: 50px; }
-.big { padding: 15px 40px; font-size: 1.1rem; }
-
-/* Responsive para celular */
-@media(max-width: 768px) {
-    .hero, .about { flex-direction: column-reverse; text-align: center; }
-    .hero-img img, .about-img img { width: 100%; max-width: 350px; height: auto; }
-    .navbar { width: 90%; flex-direction: row; justify-content: space-between; padding: 10px 15px; top: auto; bottom: 20px; }
-    .nav-link span { display: none; } /* Ocultar texto en menú móvil para ahorrar espacio */
-    .welcome-text { font-size: 3rem; }
-}
-/* =========================================
-   NUEVOS EFECTOS DE MOVIMIENTO (Micro-interacciones)
-   ========================================= */
-
-/* 1. HABILIDADES COMO BOTONES (Efecto "Pop") */
-.tags span, .card-tags span {
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Rebote suave */
-    cursor: pointer; /* Cambia el cursor a manita */
-    border: 1px solid transparent; /* Prepara el borde */
-    position: relative;
-    top: 0;
-}
-
-/* Al pasar el mouse por encima de una habilidad */
-.tags span:hover, .card-tags span:hover {
-    background-color: var(--btn-bg); /* Se pone Negro (o Blanco en modo oscuro) */
-    color: var(--btn-text);          /* El texto cambia al color opuesto */
-    transform: translateY(-5px) scale(1.05); /* Sube 5px y crece un poquito */
-    box-shadow: 0 10px 20px rgba(0,0,0,0.15); /* Sombra proyectada */
-}
-
-/* 2. TEXTOS QUE FLOTAN AL SEÑALARLOS */
-/* Aplicamos esto a los Títulos (h1, h2, h3) para que reaccionen */
-h1, h2, h3 {
-    transition: transform 0.3s ease, text-shadow 0.3s ease;
-    cursor: default; /* Cursor normal */
-}
-
-h1:hover, h2:hover, h3:hover {
-    transform: translateY(-3px); /* Se mueve un poco hacia arriba */
-    text-shadow: 0 15px 30px rgba(0,0,0,0.1); /* Sombra suave detrás del texto */
-}
-
-/* 3. MEJORA EN LAS TARJETAS (Para que el movimiento sea más fluido) */
-.card, .service-card {
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
-}
-
-.card:hover, .service-card:hover {
-    transform: translateY(-12px); /* Sube más que antes */
-    box-shadow: 0 25px 50px rgba(0,0,0,0.15); /* Sombra más profunda */
-}
-
-/* 4. BOTONES DEL MENÚ (Navbar) */
-.nav-link {
-    transition: all 0.3s ease;
-}
-.nav-link:hover {
-    transform: translateY(-2px); /* Pequeño salto en el menú */
-}
-/* --- FONDO DE TRIÁNGULOS (PEGAR AL FINAL) --- */
-#triangles-background {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    z-index: -2;
-    pointer-events: none;
-    overflow: hidden;
-}
-
-.spinning-triangle {
-    position: absolute;
-    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-    background: rgba(0, 0, 0, 0.03); /* Gris casi invisible */
-    animation: spinFloat linear infinite;
-}
-
-body.dark-mode .spinning-triangle {
-    background: rgba(255, 255, 255, 0.05); /* Blanco pálido en modo oscuro */
-}
-
-@keyframes spinFloat {
-    0% { transform: translateY(100vh) rotate(0deg) scale(0.8); opacity: 0; }
-    20% { opacity: 1; }
-    100% { transform: translateY(-20vh) rotate(360deg) scale(1.2); opacity: 0; }
-}
-
-/* --- PEGAR AL FINAL DEL CSS --- */
-#loader-triangles {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    z-index: 1; pointer-events: none; overflow: hidden;
-}
-#loader-triangles .spinning-triangle {
-    background: rgba(255, 255, 255, 0.1) !important; /* BLANCO */
-}
-
-/* --- VERSIÓN MÓVIL (PEGAR AL FINAL) --- */
-@media (max-width: 768px) {
-    
-    /* 1. Barra pegada abajo */
-    .navbar {
-        top: auto;        
-        bottom: 15px;     
-        width: 95%;       
-        padding: 10px 15px; 
+    <div id="loader">
+        <div id="loader-triangles"></div>
+        <div class="stars-container">
+            <div class="star-dot s1"></div> <div class="star-dot s2"></div> <div class="star-dot s3"></div>
+            <div class="star-dot s4"></div> <div class="star-dot s5"></div> <div class="star-dot s6"></div>
+            <div class="star-dot s7"></div> <div class="star-dot s8"></div> <div class="star-dot s9"></div>
+        </div>
         
-        display: flex;
-        justify-content: space-between; 
-        gap: 0;
-    }
+        <div class="loader-content">
+            <h1 class="welcome-text">
+                <span>B</span><span>i</span><span>e</span><span>n</span><span>v</span><span>e</span><span>n</span><span>i</span><span>d</span><span>o</span>
+            </h1>
+            <div class="loading-bar-container">
+                <div class="loading-bar"></div>
+                <p id="loading-text" style="margin-top: 10px; font-weight: bold;">CARGANDO... 0%</p>
+            </div>
+        </div>
+    </div>
 
-    /* 2. Los 4 botones de navegación */
-    .navbar .nav-links {
-        display: flex;
-        width: 100%;           
-        justify-content: space-between; 
-        padding-right: 15px;   
-        border-right: 1px solid rgba(128,128,128,0.3); 
-    }
+    <div id="particles-background"></div>
+    <div id="triangles-background"></div>
+    <nav class="navbar">
+        <div class="nav-links">
+            <a href="#inicio" class="nav-link active"><i class="fas fa-home"></i> Inicio</a>
+            <a href="#acerca" class="nav-link"><i class="fas fa-user"></i> Acerca</a>
+            <a href="#proyectos" class="nav-link"><i class="fas fa-folder"></i> Proyectos</a>
+            <a href="#servicios" class="nav-link"><i class="fas fa-tools"></i> Servicios</a>
+        </div>
+        
+        <button id="theme-toggle" class="theme-btn">
+            <i class="fas fa-moon"></i>
+        </button>
+    </nav>
 
-    /* 3. Ajuste de botones */
-    .nav-link { padding: 5px; }
-    .nav-link i { font-size: 1.2rem; margin: 0; }
-    .nav-link span { display: none; } /* Oculta texto */
+    <section id="inicio" class="hero">
+        <div class="hero-text">
+            <h1>Hola, soy <strong>Alberto </strong></h1>
+            <div class="typewriter-box">
+                <span id="typing-text"></span><span class="cursor">|</span>
+            </div>
+            <p class="bio">
+                Estudiante de <strong>Ciencias de la Computación</strong> en Ecuador. 
+                Transformo datos complejos en soluciones inteligentes usando Python, SQL y tecnologías Web.
+                Conocido en el mundo digital como <em>safari23</em>.
+            </p>
+            <div class="buttons">
+                <a href="mailto:albertorzb17@gmail.com" class="btn btn-primary">Contáctame <i class="fas fa-envelope"></i></a>
+                <a href="https://github.com/sarafi23" target="_blank" class="btn btn-outline">GitHub <i class="fab fa-github"></i></a>
+            </div>
+        </div>
+        <div class="hero-img">
+            <img src="img/avatar.jpeg" alt="Alberto Rodríguez"> 
+        </div>
+    </section>
 
-    /* 4. Botón de tema */
-    .theme-btn {
-        width: auto;
-        padding-left: 15px; 
-        display: flex;
-        align-items: center;
-        border-left: none; /* Quitamos borde extra si hubiera */
-    }
-}
+    <section id="acerca" class="about">
+        <div class="about-img">
+            <img src="img/setup.jpeg" alt="Mi Espacio de Trabajo"> 
+        </div>
+        <div class="about-info">
+            <h2><strong>Acerca de mí</strong></h2>
+            
+            <div class="info-item">
+                <h3>Alberto Carlos Rodríguez</h3>
+                <p>
+                    Apasionado por el desarrollo de software y el análisis de datos. <p></p>
+                    Tengo experiencia en creación de modelos de Machine Learning, <p></p>
+                    gestión de bases de datos y desarrollo Full Stack.<p></p>
+                    Mi meta es convertirme en un referente en programación este año.
+                </p>
+            </div>
+
+            <div class="info-item">
+                <h3>| Educación</h3>
+                <p><strong>(UNEMI)Ingeniería en Software</strong></p>
+                <p>Ecuador (En curso)</p>
+            </div>
+
+            <div class="info-item">
+                <h3>| Stack Tecnológico</h3>
+                <div class="tags">
+                    <span>Python</span><span>SQL</span><span>Power BI</span>
+                    <span>React</span><span>Node.js</span><span>Docker</span>
+                    <span>Machine Learning</span><span>Git</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="proyectos" class="projects">
+        <div class="section-title">
+            <h2>Mis <strong>Proyectos</strong></h2>
+            <p>Una selección de mis trabajos en IA, Datos y Desarrollo</p>
+        </div>
+
+        <div class="grid-cards">
+            
+            <div class="card">
+                <img src="img/proy1.jpeg" alt="Mango Leaf AI">
+                <div class="card-body">
+                    <h3>MangoLeaf AI</h3>
+                    <p>Sistema de Deep Learning para la clasificación automática de enfermedades en hojas de mango (Dataset MangoLeafBD).</p>
+                    <div class="card-tags">
+                        <span>Python</span><span>TensorFlow</span><span>Vision</span>
+                    </div>
+                    <a href="#" class="link-btn">Ver Código <i class="fab fa-github"></i></a>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="img/proy2.jpeg" alt="AgroData Analytics">
+                <div class="card-body">
+                    <h3>Milagro Transport</h3>
+                    <p>Análisis de datos de transporte público en Milagro, Ecuador, optimizando rutas y tiempos mediante Python y Pandas.</p>
+                    <div class="card-tags">
+                        <span>Python</span><span>Data Analysis</span><span>Pandas</span>
+                    </div>
+                    <a href="#" class="link-btn">Ver Análisis <i class="fas fa-chart-bar"></i></a>
+                </div>
+            </div>
+
+             <div class="card">
+                <img src="img/proy3.jpeg" alt="BioSeq Analyzer">
+                <div class="card-body">
+                    <h3>AWS Smart Gallery</h3>
+                    <p>Sistema inteligente en la nube que organiza fotos automáticamente usando reconocimiento facial (DeepFace) y YOLO en AWS.</p>
+                    <div class="card-tags">
+                        <span>AWS</span><span>Docker</span><span>AI/YOLO</span>
+                    </div>
+                    <a href="#" class="link-btn">Ver Proyecto <i class="fab fa-aws"></i></a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="servicios" class="services">
+        <div class="section-title">
+            <h2>Mis <strong>Servicios</strong></h2>
+            <p>¿En qué puedo ayudarte?</p>
+        </div>
+        <div class="grid-services">
+            <div class="service-card">
+                <div class="icon"><i class="fas fa-database"></i></div>
+                <h3>Análisis de Datos</h3>
+                <p>Extracción, limpieza (ETL) y visualización de datos complejos usando Python y Power BI.</p>
+            </div>
+            <div class="service-card">
+                <div class="icon"><i class="fas fa-brain"></i></div>
+                <h3>Machine Learning</h3>
+                <p>Desarrollo de modelos predictivos y clasificación de imágenes (Computer Vision).</p>
+            </div>
+            <div class="service-card">
+                <div class="icon"><i class="fas fa-laptop-code"></i></div>
+                <h3>Desarrollo Web</h3>
+                <p>Creación de sitios web modernos y funcionales con React y tecnologías actuales.</p>
+            </div>
+        </div>
+        <div class="cta-box">
+             <a href="mailto:albertorzb17@gmail.com" class="btn btn-primary big">Contratar</a>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
+
