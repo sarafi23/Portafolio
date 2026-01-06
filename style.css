@@ -291,41 +291,64 @@ body.dark-mode .spinning-triangle {
     background: rgba(255, 255, 255, 0.1) !important; /* BLANCO */
 }
 
-/* --- VERSIÓN MÓVIL (PEGAR AL FINAL) --- */
+/* --- VERSIÓN MÓVIL (CORREGIDA FINAL) --- */
 @media (max-width: 768px) {
     
-    /* 1. Barra pegada abajo */
+    /* 1. ARREGLO DE SECCIONES (Para que el texto no se vea apretado) */
+    section {
+        padding: 100px 20px 40px; /* Menos espacio a los lados (20px) para que quepa más texto */
+        min-height: auto;
+    }
+    
+    /* Acomodamos la portada y el 'Acerca de mí' en columna */
+    .hero, .about {
+        flex-direction: column; 
+        text-align: center;
+        gap: 30px;
+    }
+
+    /* Imágenes responsive (que no se salgan) */
+    .hero-img img, .about-img img {
+        width: 80%;
+        max-width: 280px;
+        height: auto;
+    }
+
+    /* 2. ARREGLO DE LA BARRA (Para que no se corte nada) */
     .navbar {
         top: auto;        
         bottom: 15px;     
         width: 95%;       
-        padding: 10px 15px; 
+        padding: 10px 10px; /* Relleno mínimo para ganar espacio */
         
         display: flex;
         justify-content: space-between; 
+        align-items: center;
         gap: 0;
     }
 
-    /* 2. Los 4 botones de navegación */
+    /* En lugar de % fijos, usamos 'flex: 1' para que ocupe lo que sobre */
     .navbar .nav-links {
         display: flex;
-        width: 100%;           
+        flex: 1;               /* Toma todo el espacio disponible automáticamente */
         justify-content: space-between; 
-        padding-right: 15px;   
+        padding-right: 10px;   
         border-right: 1px solid rgba(128,128,128,0.3); 
     }
 
-    /* 3. Ajuste de botones */
-    .nav-link { padding: 5px; }
-    .nav-link i { font-size: 1.2rem; margin: 0; }
-    .nav-link span { display: none; } /* Oculta texto */
+    /* Botones más compactos */
+    .nav-link { 
+        padding: 5px; 
+    }
+    .nav-link i { font-size: 1.1rem; margin: 0; } /* Ícono un pelín más chico */
+    .nav-link span { display: none; } 
 
-    /* 4. Botón de tema */
+    /* Botón de tema (se ajusta solo) */
     .theme-btn {
-        width: auto;
-        padding-left: 15px; 
+        width: auto;       /* Que ocupe solo lo necesario */
+        padding-left: 10px; 
         display: flex;
         align-items: center;
-        border-left: none; /* Quitamos borde extra si hubiera */
+        justify-content: center;
     }
 }
