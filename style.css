@@ -276,43 +276,40 @@ body.dark-mode .spinning-triangle {
     background: rgba(255, 255, 255, 0.1) !important; /* BLANCO */
 }
 
-/* --- VERSIÓN PARA CELULARES (Responsive) --- */
-@media (max-width: 768px) {
-    
-    /* 1. Acomodar todo en columna vertical */
-    .hero, .about {
-        flex-direction: column-reverse; /* Texto arriba, imagen abajo (o al revés) */
-        text-align: center;
-        gap: 30px;
-        padding: 80px 20px; /* Menos relleno en los lados */
-    }
-
-    /* 2. Ajustar imágenes para que no se salgan */
-    .hero-img img, .about-img img {
-        width: 80%; /* Un poco más chicas */
-        max-width: 300px;
-        height: auto;
-    }
-
-    /* 3. Textos más pequeños */
-    .hero h1 { font-size: 2.5rem; } /* Título más chico */
-    .welcome-text { font-size: 3rem; } /* Loader más chico */
-    
-    /* 4. Menú de navegación (Se va abajo estilo App) */
+/* --- BARRA DE NAVEGACIÓN MÓVIL (CORREGIDA) --- */
     .navbar {
-        top: auto;        /* Quitamos la posición de arriba */
-        bottom: 20px;     /* Lo pegamos abajo */
-        width: 90%;       /* Que ocupe casi todo el ancho */
-        justify-content: space-between; /* Separar íconos */
-        padding: 10px 20px;
+        top: auto;        
+        bottom: 20px;     
+        width: 92%;       /* Un poco más ancha para tener espacio */
+        padding: 12px 15px; /* Menos relleno a los lados */
+        justify-content: space-between; 
+        gap: 5px; /* Espacio mínimo entre el grupo de links y el botón de tema */
     }
 
-    /* Ocultamos el texto de los botones del menú para ahorrar espacio */
-    .nav-link span { display: none; } 
-    .nav-link i { font-size: 1.2rem; margin: 0; } /* Íconos más grandes */
-
-    /* 5. Ajustar Tarjetas */
-    .grid-cards, .grid-services {
-        grid-template-columns: 1fr; /* Una sola columna de tarjetas */
+    /* Contenedor de los 4 enlaces (Inicio, Acerca, Proyectos, Servicios) */
+    .navbar .nav-links {
+        display: flex;          /* Para poder ordenarlos */
+        justify-content: space-between; /* Que se repartan el espacio */
+        width: 85%;             /* Que ocupen la mayoría de la barra */
     }
-}
+
+    .nav-link {
+        padding: 8px; /* Botones más compactos */
+        justify-content: center;
+    }
+
+    .nav-link span { display: none; } /* Ocultamos el texto */
+    
+    .nav-link i { 
+        font-size: 1.3rem; /* Íconos un poquito más grandes para el dedo */
+        margin: 0; 
+    }
+
+    /* Botón de Modo Oscuro */
+    .theme-btn {
+        width: 15%; /* El espacio que sobra es para este botón */
+        display: flex;
+        justify-content: center;
+        border-left: 1px solid rgba(128,128,128,0.3); /* Una rayita para separarlo */
+        padding-left: 10px;
+    }
